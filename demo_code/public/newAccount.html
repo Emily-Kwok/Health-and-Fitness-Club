@@ -97,51 +97,51 @@
       <label id='welcome'>SIGN UP</label><br>
       
       <label id='categories'>First Name *</label>
-      <input class='input-box' type='text' id='fname' required>
+      <input class='input-box' type='text' id='fname' name="first_name" required>
       
       <label id='categories'>Last Name *</label>
-      <input class='input-box' type='text' id='lname' required>
+      <input class='input-box' type='text' id='lname' name="last_name" required>
       
       <label id='categories'>Date Of Birth *</label>
-      <input class='input-box' type='date' id='birthday' required>
+      <input class='input-box' type='date' id='birthday' name="birthday" required>
       
       <label id='categories'>Gender *</label>
       <div>
-        <input class='radio' type='radio' id='male' name="gender" required>
+        <input class='radio' type='radio' id='male' name="gender" value="male" required>
         <label class='radio-label' for="male">Male</label>
-        <input class='radio' type='radio' id='female' name="gender">
+        <input class='radio' type='radio' id='female' name="gender" value="female">
         <label class='radio-label' for="female">Female</label>
-        <input class='radio' type='radio' id='other' name="gender">
+        <input class='radio' type='radio' id='other' name="gender" value="other">
         <label class='radio-label' for="other">Other</label>
       </div>
       
       <label id='categories'>Email *</label>
-      <input class='input-box' type='email' id='email' required>
+      <input class='input-box' type='email' id='email' name="email" required>
 
       <label id='categories'>Address</label>
-      <input class='input-box' type='text' id='address'>
+      <input class='input-box' type='text' id='address' name="address">
 
       <label id='categories'>Phone Number</label>
-      <input class='input-box' type='tel' id='phone_number' placeholder="eg. (123)-456-7890" pattern="([0-9]{3})-[0-9]{3}-[0-9]{4}">
+      <input class='input-box' type='tel' id='phone_number' placeholder="eg. (123)-456-7890" pattern="([0-9]{3})-[0-9]{3}-[0-9]{4}" name="phone_number">
       
       <label id='categories'>Emergency Contact</label>
       <div id="emergency_contact">
         <label id='categories'>Full Name</label>
-        <input class='input-box' type='text' id='emergency_name'>
+        <input class='input-box' type='text' id='emergency_name' name="emergency_name">
         <label id='categories'>Relationship</label>
-        <input class='input-box' type='text' id='emergency_relationship'>
+        <input class='input-box' type='text' id='emergency_relationship' name="emergency_relationship">
         <label id='categories'>Phone Number</label>
-        <input class='input-box' type='tel' id='emergency_number' placeholder="eg. (123)-456-7890" pattern="([0-9]{3})-[0-9]{3}-[0-9]{4}">
+        <input class='input-box' type='tel' id='emergency_number' placeholder="eg. (123)-456-7890" pattern="([0-9]{3})-[0-9]{3}-[0-9]{4}" name="emergency_number">
       </div>
 
       <label id='categories'>Medical History</label>
-      <input class='input-box' type='text' id='med_hist'>
+      <input class='input-box' type='text' id='med_hist' name="medical_history">
 
-      <label id='categories'>Create Password</label>
-      <input class='password' type='password' id='password' name='password'>
+      <label id='categories'>Create Password *</label>
+      <input class='password' type='password' id='password' name='password' required>
       
-      <label id='categories'>Confirm Password</label>
-      <input class='password' type='password' id='confirm-password' name='confirm_password'>
+      <label id='categories'>Confirm Password *</label>
+      <input class='password' type='password' id='confirm-password' name='confirm_password' required>
       <p id="errMessage"></p>
       <button class="submit-button" type="submit" id="signup-button">Create account</button>
     </form>

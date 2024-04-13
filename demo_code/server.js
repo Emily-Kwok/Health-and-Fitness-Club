@@ -8,7 +8,25 @@ const io = require('socket.io')(server)
 const PORT = process.env.PORT || 3000
 const ROOT_DIR = '/public'
 
+const {Client} = require('pg')
+const client = new Client({
+    host: "localhost",
+    user: "postgres",
+    port: "5432",
+    password: "password",
+    database: "project"
+})
+client.connect()
 
+const SECURITY_CODE = "0413";
+
+const MAX_MEMBERS_PER_GROUP = "6";
+
+const DROP_IN_FEE = "10";
+const MONTHLY_FEE = "30";
+const ANNUAL_FEE = "300";
+const PERSONAL_TRAINING_FEE = "50";
+const GROUP_FITNESS_FEE = "15";
 
 //functions
 function isUsersEqual(user1, user2){
@@ -104,21 +122,39 @@ app.get('/sign-up', (req, res) => {
 app.post('/sign-up', (req, res) => {
     console.log("Post Sign In")
     console.log(req.body)
-    let user = {}
-    let username = req.body.username
-    let password = req.body.password
-    let confirm_password = req.body.confirm_password
-    if( password == confirm_password && ( username != "" && password != "" && confirm_password != "" ) ){
-        req.session.user = true
-        user.username = username
-        user.password = password
-        registeredUsers.push(user)
-        res.sendFile(__dirname + (ROOT_DIR + '/chatClient.html'))   //Required?
-        res.redirect('/chat-server')
-    }
+    // let user = {}
+    // let username = req.body.username
+    // let password = req.body.password
+    // let confirm_password = req.body.confirm_password
+    // if( password == confirm_password && ( username != "" && password != "" && confirm_password != "" ) ){
+    //     req.session.user = true
+    //     user.username = username
+    //     user.password = password
+    //     registeredUsers.push(user)
+    //     res.sendFile(__dirname + (ROOT_DIR + '/chatClient.html'))   //Required?
+    //     res.redirect('/chat-server')
+    // }
 })
 
-app.get('/chat-server', (req, res) => {
+app.get('/members', (req, res) => {
+    // console.log("Chat: ", req.session.user)
+    if( req.session.user ){
+        console.log("Chat Server")
+        res.sendFile(__dirname + (ROOT_DIR + '/chatClient.html'))
+    }
+    else res.redirect('homepage')
+})
+
+app.get('/trainers', (req, res) => {
+    // console.log("Chat: ", req.session.user)
+    if( req.session.user ){
+        console.log("Chat Server")
+        res.sendFile(__dirname + (ROOT_DIR + '/chatClient.html'))
+    }
+    else res.redirect('homepage')
+})
+
+app.get('/admin', (req, res) => {
     // console.log("Chat: ", req.session.user)
     if( req.session.user ){
         console.log("Chat Server")
