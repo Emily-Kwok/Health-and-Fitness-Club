@@ -8,8 +8,7 @@ const io = require('socket.io')(server)
 const PORT = process.env.PORT || 3000
 const ROOT_DIR = '/public'
 
-var listOfUsers = []
-var registeredUsers = [{username: "John", password: "1234"}]
+
 
 //functions
 function isUsersEqual(user1, user2){
