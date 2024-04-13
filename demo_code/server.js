@@ -2,11 +2,22 @@ const express = require('express')
 const session = require('express-session')
 const app = express()
 const bodyParser = require('body-parser')
+const { exit } = require('process')
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 
 const PORT = process.env.PORT || 3000
 const ROOT_DIR = '/public'
+
+const SECURITY_CODE = "0413";
+
+const MAX_MEMBERS_PER_GROUP = "6";
+
+const DROP_IN_FEE = "10";
+const MONTHLY_FEE = "30";
+const ANNUAL_FEE = "300";
+const PERSONAL_TRAINING_FEE = "50";
+const GROUP_FITNESS_FEE = "15";
 
 var listOfUsers = []
 var registeredUsers = [{username: "John", password: "1234"}]
@@ -76,13 +87,61 @@ app.get(['/', '/homepage'], (req, res) => {
     res.sendFile(__dirname + (ROOT_DIR + '/homepage.html'))
 })
 
-app.get('/login', (req, res) => {
-    console.log("Get Login")
-    res.sendFile(__dirname + (ROOT_DIR + '/login.html'))
+app.get('/login-portal', (req, res) => {
+    console.log("Get Login Portal")
+    res.sendFile(__dirname + (ROOT_DIR + '/login-portal.html'))
 })
 
-app.post('/login', (req, res) => {
-    console.log("Post Login")
+app.get('/signup-portal', (req, res) => {
+    console.log("Get SignUp Portal")
+    res.sendFile(__dirname + (ROOT_DIR + '/signup-portal.html'))
+})
+
+app.get('/authentication', (req, res) => {
+    console.log("Get Authentication")
+    res.sendFile(__dirname + (ROOT_DIR + '/employee-authentication.html'))
+})
+
+app.post('/authentication', (req, res) => {
+    console.log("Post Authentication")
+    console.log(req.body)
+    if( req.body.code == SECURITY_CODE ){
+        // res.sendFile(__dirname + (ROOT_DIR + '/chatClient.html'))
+        console.log("VALID")
+    }
+    else{
+        console.log("INVALID")
+    }
+})
+
+app.get('/member-login', (req, res) => {
+    console.log("Get Member Login")
+    res.sendFile(__dirname + (ROOT_DIR + '/member-login.html'))
+})
+
+app.post('/member-login', (req, res) => {
+    console.log("Post Member Login")
+    let user = {}
+    user.username = req.body.username
+    user.password = req.body.password
+    
+    for( let x = 0 ; x < registeredUsers.length ; x++ ){
+        // console.log(registeredUsers[x])
+        if( isUsersEqual(user, registeredUsers[x]) && ( user.username != "" && user.password != "" ) ){
+            req.session.user = true
+            res.sendFile(__dirname + (ROOT_DIR + '/chatClient.html'))   //Required?
+            res.redirect('/chat-server')
+        }
+    }
+})
+
+app.get('/employee-login', (req, res) => {
+    console.log("Get Employee Login")
+    res.sendFile(__dirname + (ROOT_DIR + '/employee-login.html'))
+})
+
+app.post('/employee-login', (req, res) => {
+    console.log("Post Employee Login")
     let user = {}
     user.username = req.body.username
     user.password = req.body.password

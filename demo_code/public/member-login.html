@@ -21,16 +21,18 @@
         font-size: 1.4em;
         padding: 15px;
         margin: 0px;
-        background-color: #52A7E9;
+        background-color: #708ba9;
       }
       label#welcome{
       	display: block;
       	font-family: Verdana;
         font-weight: bold;
+        font-size: 30px;
         text-align: center;
       }
       label#categories{
       	font-family: Monaco;
+        margin-top: 10px;
       }
       div#login{
         box-sizing: border-box;
@@ -38,14 +40,12 @@
         margin-left: auto;
         margin-right: auto;
         border: 1px solid;
-        padding: 40px 20px;
+        padding: 100px 40px;
         border-radius: 10px;
         background-color: white;
       }
       input#username, input#password {
-        width: -webkit-calc(100% - 24px);
-        width: -moz-calc(100% - 24px);
-        width: calc(100% - 24px);
+        width: 100%;
         display: block;
         padding: 10px;
         border-radius: 5px;
@@ -73,22 +73,22 @@
 
 <body>
   <nav class="navbar navbar-expand-sm bg-dark">
-    <a class="nav-item" href="/homepage" style='color: white; font-weight: bold;'>Chatio</a>
+    <a class="nav-item" href="/homepage" style='color: white; font-weight: bold;'>Homepage</a>
     <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="/login" id="portal">Login</a>
+      <a class="nav-link" href="/login-portal" style='color: white;' id="portal">Login</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/sign-up" id="portal">Sign-Up</a>
+      <a class="nav-link" href="/signup-portal" style='color: white;' id="portal">Sign-Up</a>
     </li>
   </ul>
   </nav><br>
 
   <div id='login'>
-    <form action="/login" method="post">
-      <label id='welcome'>Login</label><br>
+    <form action="/member-login" method="post">
+      <label id='welcome'>LOGIN</label><br>
       <label id='categories'>Username</label>
-      <input type='text' placeholder='Enter Username' id='username' name='username'><br>
+      <input type='text' placeholder='Enter Username' id='username' name='username'>
       <label id='categories'>Password</label>
       <input type='password' placeholder='Enter Password' id='password' name='password'>
       <p id="errMessage"></p>
