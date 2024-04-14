@@ -15,6 +15,8 @@ ISSUES:
 
 NOTES: 
 
+   Only thing working is the HTML for homepage, login, and sign-up
+
    Missing demo video
    Missing ER-diagram
    Missing implementation
