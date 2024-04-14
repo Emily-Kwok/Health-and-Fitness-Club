@@ -1,21 +1,23 @@
-VIDEO:  
+VIDEO:  <...>
 
 GITHUB: https://github.com/Emily-Kwok/Health-and-Fitness-Club.git
 
-JAVA APPLICATION SETUP:
+JAVASCRIPT APPLICATION SETUP:
 
-   1. 
+   1. <...>
 
 DESCRIPTION:
-   <>
+   <...>
 
 ISSUES: 
 
-   NONE
+   Webpages do not query.
 
 NOTES: 
 
-   NONE
+   Missing demo video
+   Missing ER-diagram
+   Missing implementation
 
 IMAGE SOURCES
 
