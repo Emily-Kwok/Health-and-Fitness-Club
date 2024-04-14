@@ -113,8 +113,18 @@ app.post('/login', (req, res) => {
             for( let x = 0 ; x < res.rows.length ; x++ ){
                 if( user.username == res.rows[x] && user.password == res.rows[x] ){
                     req.session.user = true
-                    res.sendFile(__dirname + (ROOT_DIR + '/membersPage.html'))   //Required?
-                    res.redirect('/members')
+                    if( user.type == "member" ){
+                        res.sendFile(__dirname + (ROOT_DIR + '/membersPage.html'))
+                        res.redirect('/members')
+                    }
+                    else if( user.type == "trainer" ){
+                        res.sendFile(__dirname + (ROOT_DIR + '/trainersPage.html'))
+                        res.redirect('/trainers')
+                    }
+                    else if( user.type == "administrator" ){
+                        res.sendFile(__dirname + (ROOT_DIR + '/adminsPage.html'))
+                        res.redirect('/admin')
+                    }
                 }
             }
         }
