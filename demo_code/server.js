@@ -29,39 +29,41 @@ const PERSONAL_TRAINING_FEE = "50";
 const GROUP_FITNESS_FEE = "15";
 
 //functions
-function isUsersEqual(user1, user2){
-    return user1.username == user2.username && user1.password == user2.password
-}
 
-function isUserValid(names, users){
-  if( names.includes(",") ){
-    let listOfNames = names.split(",")
-    
-    for(let name of listOfNames){
-      if( !users.find( item => item.name === name.trim() ) ) return false
+function employeeIDGenerator(){
+    while(1){
+        let id = Math.floor(1000 + Math.random() * 9000)
+        if(isEmployeeIDValid(id)) return id
     }
-  }
-  else{
-    if( !users.find( item => item.name === names ) ) return false
-  }
 
-  return true
 }
 
-function removeUser(socketID, listOfUsers){
-  let newListOfUsers = []
-  let indexOfUserBeingRemoved = listOfUsers.findIndex( item => item.socketID === socketID )
-  let firstHalfOfList = []
-  let lastHalfOfList = []
-  
-  firstHalfOfList = listOfUsers.slice(0, indexOfUserBeingRemoved)
-  lastHalfOfList = listOfUsers.slice(indexOfUserBeingRemoved + 1)
-
-  for( let f of firstHalfOfList ) newListOfUsers.push(f)
-  for( let l of lastHalfOfList ) newListOfUsers.push(l)
-
-  return newListOfUsers
+function isEmployeeIDValid(id){
+    client.query("SELECT employee_ID FROM Trainers FULL JOIN Administrators ON Trainers.employee_ID=Administrators.employeeID", (err, res)=>{
+        if(!err){
+            for( let x = 0 ; x < res.rows.length ; x ++ ){
+                if( id != res.rows[x] ) return true
+            }
+            return false
+        }
+        else console.log(err.message)
+    })
 }
+
+function currentID(id_name, table_name){
+    client.query("SELECT MAX(" + id_name + ") FROM " + table_name, (err, res)=>{
+        if(!err){
+            return res.rows[0].max
+        }
+        else console.log(err.message)
+    })
+}
+
+let currEmergencyContactID = currentID("emergency_contact_ID", "Emergency_Contacts")
+let currAuthenticationID = currentID("authentication_ID", "Authentication")
+let currMemberID = currentID("member_ID", "Members")
+let currTrainerID = currentID("trainer_ID", "Trainers")
+let currAdminID = currentID("admin_ID", "Administrators")
 
 function listOfInvalidUsers(names, users){
   let invalidUsernames = []
@@ -129,24 +131,86 @@ app.post('/sign-up', (req, res) => {
     console.log("Post Sign In")
     console.log(req.body)
     let user = {}
-    let username = req.body.username
-    let password = req.body.password
-    let confirm_password = req.body.confirm_password
-    if( password == confirm_password && ( username != "" && password != "" && confirm_password != "" ) ){
+    user.type = req.body.personnel
+    user.fname = req.body.first_name
+    user.lname = req.body.last_name
+    user.bday = req.body.birthday
+    user.gender = req.body.gender
+    user.email = req.body.email
+    user.address = req.body.address
+    user.phone = req.body.phone_number
+    user.emergency_name = req.body.emergency_name
+    user.emergency_relationship = req.body.emergency_relationship
+    user.emergency_number = req.body.emergency_number
+    user.medical = req.body.medical_history
+    user.password = req.body.password
+    user.confirm = req.body.confirm_password
+
+    if( user.password == user.confirm ){
         req.session.user = true
-        user.username = username
-        user.password = password
-        registeredUsers.push(user)
-        res.sendFile(__dirname + (ROOT_DIR + '/chatClient.html'))   //Required?
-        res.redirect('/chat-server')
+
+        if( user.type == "member" ){
+            let q = "INSERT INTO Members VALUES(" + user.fname + ", " + user.lname + ", " + user.email + ", " + user.bday + ", " + user.gender + ", " + user.phone + ", " + user.address + ", " + user.medical + ", " + (currEmergencyContactID+1) + ", " + (currAuthenticationID+1) + ")"
+            client.query(q, (err, res)=>{
+                if(err) console.log(err.message)
+            })
+
+            q = "INSERT INTO Emergency_Contacts VALUES (" + user.emergency_name + ", " + user.emergency_relationship + ", " + user.emergency_number + ", " + currMemberID + ", NULL, NULL)"
+            client.query(q, (err, res)=>{
+                if(err) console.log(err.message)
+                else{
+                    req.session.user = true
+                    res.sendFile(__dirname + (ROOT_DIR + '/membersPage.html'))
+                    res.redirect('/members')
+                }
+            })
+
+                    
+        }
+        if( user.type == "trainer" ){
+            let q = "INSERT INTO Members VALUES(" + user.fname + ", " + user.lname + ", " + user.email + ", " + user.bday + ", " + user.gender + ", " + user.phone + ", " + user.address + ", " + user.medical + ", " + (currEmergencyContactID+1) + ", " + (currAuthenticationID+1) + ")"
+            client.query(q, (err, res)=>{
+                if(err) console.log(err.message)
+            })
+
+            q = "INSERT INTO Emergency_Contacts VALUES (" + user.emergency_name + ", " + user.emergency_relationship + ", " + user.emergency_number + ", " + currMemberID + ", NULL, NULL)"
+            client.query(q, (err, res)=>{
+                if(err) console.log(err.message)
+                else{
+                    req.session.user = true
+                    res.sendFile(__dirname + (ROOT_DIR + '/trainersPage.html'))
+                    res.redirect('/trainer')
+                }
+            })
+
+                    
+        }
+        if( user.type == "administrator" ){
+            let q = "INSERT INTO Members VALUES(" + user.fname + ", " + user.lname + ", " + user.email + ", " + user.bday + ", " + user.gender + ", " + user.phone + ", " + user.address + ", " + user.medical + ", " + (currEmergencyContactID+1) + ", " + (currAuthenticationID+1) + ")"
+            client.query(q, (err, res)=>{
+                if(err) console.log(err.message)
+            })
+
+            q = "INSERT INTO Emergency_Contacts VALUES (" + user.emergency_name + ", " + user.emergency_relationship + ", " + user.emergency_number + ", " + currMemberID + ", NULL, NULL)"
+            client.query(q, (err, res)=>{
+                if(err) console.log(err.message)
+                else{
+                    req.session.user = true
+                    res.sendFile(__dirname + (ROOT_DIR + '/adminsPage.html'))
+                    res.redirect('/admin')
+                }
+            })
+
+                    
+        }
     }
 })
 
 app.get('/members', (req, res) => {
     // console.log("Chat: ", req.session.user)
     if( req.session.user ){
-        console.log("Chat Server")
-        res.sendFile(__dirname + (ROOT_DIR + '/chatClient.html'))
+        console.log("Members Page")
+        res.sendFile(__dirname + (ROOT_DIR + '/membersPage.html'))
     }
     else res.redirect('homepage')
 })
@@ -154,8 +218,8 @@ app.get('/members', (req, res) => {
 app.get('/trainers', (req, res) => {
     // console.log("Chat: ", req.session.user)
     if( req.session.user ){
-        console.log("Chat Server")
-        res.sendFile(__dirname + (ROOT_DIR + '/chatClient.html'))
+        console.log("Trainers Page")
+        res.sendFile(__dirname + (ROOT_DIR + '/trainersPage.html'))
     }
     else res.redirect('homepage')
 })
@@ -163,8 +227,8 @@ app.get('/trainers', (req, res) => {
 app.get('/admin', (req, res) => {
     // console.log("Chat: ", req.session.user)
     if( req.session.user ){
-        console.log("Chat Server")
-        res.sendFile(__dirname + (ROOT_DIR + '/chatClient.html'))
+        console.log("Admin Page")
+        res.sendFile(__dirname + (ROOT_DIR + '/adminsPage.html'))
     }
     else res.redirect('homepage')
 })
