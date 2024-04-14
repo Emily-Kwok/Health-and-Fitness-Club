@@ -39,12 +39,12 @@ function employeeIDGenerator(){
 }
 
 function isEmployeeIDValid(id){
-    client.query("SELECT employee_ID FROM Trainers FULL JOIN Administrators ON Trainers.employee_ID=Administrators.employeeID", (err, res)=>{
+    client.query("SELECT concat(Trainers.employee_ID, Administrators.employee_ID) AS employee_ID FROM Trainers FULL JOIN Administrators ON Trainers.employee_ID=Administrators.employee_ID;", (err, res)=>{
         if(!err){
             for( let x = 0 ; x < res.rows.length ; x ++ ){
-                if( id != res.rows[x] ) return true
+                if( id == res.rows[x] ) return false
             }
-            return false
+            return true
         }
         else console.log(err.message)
     })
@@ -164,11 +164,9 @@ app.post('/sign-up', (req, res) => {
                     res.redirect('/members')
                 }
             })
-
-                    
         }
         if( user.type == "trainer" ){
-            let q = "INSERT INTO Members VALUES(" + user.fname + ", " + user.lname + ", " + user.email + ", " + user.bday + ", " + user.gender + ", " + user.phone + ", " + user.address + ", " + user.medical + ", " + (currEmergencyContactID+1) + ", " + (currAuthenticationID+1) + ")"
+            let q = "INSERT INTO Members VALUES(" + user.fname + ", " + user.lname + ", " + employeeIDGenerator() + ", " + user.email + ", " + user.bday + ", " + user.gender + ", " + user.phone + ", " + user.address + ", " + user.medical + ", " + (currEmergencyContactID+1) + ", " + (currAuthenticationID+1) + ")"
             client.query(q, (err, res)=>{
                 if(err) console.log(err.message)
             })
@@ -181,12 +179,10 @@ app.post('/sign-up', (req, res) => {
                     res.sendFile(__dirname + (ROOT_DIR + '/trainersPage.html'))
                     res.redirect('/trainer')
                 }
-            })
-
-                    
+            })   
         }
         if( user.type == "administrator" ){
-            let q = "INSERT INTO Members VALUES(" + user.fname + ", " + user.lname + ", " + user.email + ", " + user.bday + ", " + user.gender + ", " + user.phone + ", " + user.address + ", " + user.medical + ", " + (currEmergencyContactID+1) + ", " + (currAuthenticationID+1) + ")"
+            let q = "INSERT INTO Members VALUES(" + user.fname + ", " + user.lname + ", " + employeeIDGenerator() + ", " + user.email + ", " + user.bday + ", " + user.gender + ", " + user.phone + ", " + user.address + ", " + user.medical + ", " + (currEmergencyContactID+1) + ", " + (currAuthenticationID+1) + ")"
             client.query(q, (err, res)=>{
                 if(err) console.log(err.message)
             })
@@ -200,8 +196,6 @@ app.post('/sign-up', (req, res) => {
                     res.redirect('/admin')
                 }
             })
-
-                    
         }
     }
 })
