@@ -1,6 +1,6 @@
 VIDEO:  
 
-GITHUB: https://github.com/Emily-Kwok/Health-and-Fitness-Club.git
+GITHUB: 
 
 JAVA APPLICATION SETUP:
 
@@ -16,8 +16,3 @@ ISSUES:
 NOTES: 
 
    NONE
-
-IMAGE SOURCES
-
-   gym.png
-   https://www.hussle.com/blog/the-way-to-structure-a-gym-workout/
