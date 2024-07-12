@@ -1,3 +1,5 @@
+Edit: Something new
+
 VIDEO:  <...>
 
 GITHUB: https://github.com/Emily-Kwok/Health-and-Fitness-Club.git
