@@ -1,19 +1,46 @@
-VIDEO:  <...>
+VIDEO:
 
-GITHUB: https://github.com/Emily-Kwok/Health-and-Fitness-Club.git
+   <...>
+
+
+
+GITHUB: 
+
+   https://github.com/Emily-Kwok/Health-and-Fitness-Club.git
+
+
 
 JAVASCRIPT APPLICATION SETUP:
 
    1. <...>
 
+
+
 DESCRIPTION:
+
    <...>
+
+
+
+LAUNCH:
+
+   node server.js
+
+
+
+TESTING:
+
+   Visit: http://localhost:3000/homepage.html
+
+
 
 ISSUES: 
 
    INCOMPLETE CODE
 
    Webpages do not query.
+
+
 
 NOTES: 
 
@@ -23,7 +50,13 @@ NOTES:
    Missing ER-diagram
    Missing implementation
 
+
+
 IMAGE SOURCES
 
    gym.png
    https://www.hussle.com/blog/the-way-to-structure-a-gym-workout/
+
+
+
+[END]
