@@ -24,7 +24,8 @@ DESCRIPTION:
 
 LAUNCH:
 
-   node server.js
+   Location:   demo_code
+   Command:   node server.js
 
 
 
