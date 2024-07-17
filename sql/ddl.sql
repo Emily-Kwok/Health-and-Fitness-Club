@@ -84,6 +84,7 @@ CREATE TABLE Goals (
 	target_weight FLOAT NOT NULL,
 	target_date DATE NOT NULL,
 	description TEXT,
+	completed VARCHAR(5) NOT NULL,
 	FOREIGN KEY (member_ID) REFERENCES Members(member_ID)
 );
 
