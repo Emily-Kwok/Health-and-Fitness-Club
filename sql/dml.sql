@@ -79,11 +79,11 @@ VALUES (1, 'Annual Membership Plan', 'Unpaid', 300, NULL, '2024-02-16'),
 	   (1, 'Group Fitness Class', 'Unpaid', 15, NULL, '2024-04-14'),
 	   (3, 'Personal Training Session', 'Unpaid', 50, NULL, '2024-04-15');
 
-INSERT INTO Goals (member_ID, target_weight, target_date, description)
-VALUES (3, 160, '2024-04-01', '100 Push Ups Per Day'),
-	   (2, 100, '2024-04-02', '1K Run Each Morning'),
-	   (3, 120, '2024-04-29', '100 Sit Ups Per Day'),
-	   (1, 80, '2024-05-03', 'Lift Weights');
+INSERT INTO Goals (member_ID, target_weight, target_date, description, completed)
+VALUES (3, 160, '2024-04-01', '100 Push Ups Per Day', 'false'),
+	   (2, 100, '2024-04-02', '1K Run Each Morning', 'false'),
+	   (3, 120, '2024-04-29', '100 Sit Ups Per Day', 'false'),
+	   (1, 80, '2024-05-03', 'Lift Weights', 'false');
 
 INSERT INTO Weight (member_ID, trainer_ID, weight, date)
 VALUES (1, NULL, 180, '2024-02-27'),
