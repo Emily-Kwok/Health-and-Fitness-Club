@@ -58,6 +58,12 @@ IMAGE SOURCES
    gym.png
    https://www.hussle.com/blog/the-way-to-structure-a-gym-workout/
 
+   banner.png
+   https://www.vecteezy.com/free-photos/gym
+
+   unknown_profile_picture.jpg
+   https://en.m.wikipedia.org/wiki/File:Unknown_person.jpg
+
 
 
 [END]

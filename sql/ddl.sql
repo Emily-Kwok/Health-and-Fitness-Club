@@ -46,6 +46,7 @@ CREATE TABLE Authentication (
 	authentication_ID SERIAL PRIMARY KEY,
 	username VARCHAR(100) UNIQUE NOT NULL,
 	password VARCHAR(100) NOT NULL,
+	personnel VARCHAR(20) NOT NULL,
 	member_ID INT,
 	trainer_ID INT,
 	admin_ID INT,
@@ -84,6 +85,14 @@ CREATE TABLE Goals (
 	target_weight FLOAT NOT NULL,
 	target_date DATE NOT NULL,
 	description TEXT,
+	completed VARCHAR(5) NOT NULL,
+	FOREIGN KEY (member_ID) REFERENCES Members(member_ID)
+);
+
+CREATE TABLE Workouts (
+	workout_ID SERIAL PRIMARY KEY,
+	member_ID INT NOT NULL,
+	workout_name TEXT NOT NULL,
 	completed VARCHAR(5) NOT NULL,
 	FOREIGN KEY (member_ID) REFERENCES Members(member_ID)
 );

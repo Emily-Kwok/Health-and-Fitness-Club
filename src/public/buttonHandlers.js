@@ -1,12 +1,10 @@
-//KEY CODES
+// Key Codes
 const ENTER = 13
-const RIGHT_ARROW = 39
-const LEFT_ARROW = 37
-const UP_ARROW = 38
-const DOWN_ARROW = 40
 
+// Variables
 const DIR = "http://localhost:3000"
 
+// Functions
 function handleKeyUp(e) {
     if (e.which == ENTER) {
         console.log("KEYUP")
@@ -17,16 +15,53 @@ function handleKeyUp(e) {
     e.preventDefault()
 }
 
+// function handleLoginButton(){
+//     let type = ""
+//     let username = document.getElementById('username').value.trim()
+//     let password = document.getElementById('password').value.trim()
+//     let errorText = document.getElementById('error_text')
+//     let errorMsg = document.createElement('div')
+
+//     clearErrorText()
+
+//     if( username == "" ){
+//         errorText.textContent = "Username is missing."
+//         errorText.appendChild(errorMsg)
+//     }
+//     if( password == "" ){
+//         errorText.textContent = "Password is missing."
+//         errorText.appendChild(errorMsg)
+//     }
+
+//     if( document.getElementById('member') ) type = "member"
+//     else if( document.getElementById('trainer') ) type = "trainer"
+//     else if( document.getElementById('administrator') ) type = "admin"
+
+//     verify(type, username, password)
+// }
+
 async function handleLoginButton() {
-        const response = await fetch('/login')
-        if( (document.getElementById("username").value == "" || document.getElementById("password").value == "" || document.getElementById("confirm-password").value == "")  ){
-            document.getElementById("errMessage").innerText = "Form is incomplete. Please try again."
-        }
-        if( response.ok ){
-            document.getElementById("errMessage").innerText = "Incorrect username or password. Please try again."
-        }
+    const response = await fetch('/login')
+    let userName = document.getElementById('username').value.trim()
+    let password = document.getElementById('password').value.trim()
+    let errorText = document.getElementById('error_text')
+    let errorMsg = document.createElement('div')
+
+    if( userName == "" ){
+        errorText.textContent = "Username is missing."
+        errorText.appendChild(errorMsg)
+    }
+    if( password == "" ){
+        errorText.textContent = "Password is missing."
+        errorText.appendChild(errorMsg)
+    }
+    if( response.ok ){
+        errorText.textContent = "Incorrect username or password. Please try again."
+        errorText.appendChild(errorMsg)
+
         document.getElementById("username").value = ""
         document.getElementById("password").value = ""
+    }
 }
 
 async function handleSignInButton() {

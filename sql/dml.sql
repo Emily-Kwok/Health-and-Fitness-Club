@@ -50,14 +50,14 @@ VALUES ('Spin Bike', 'Available'),
 	   ('Medicine Ball', 'Available'),
 	   ('Medicine Ball', 'Available');
 
-INSERT INTO Authentication (username, password, member_ID, trainer_ID, admin_ID)
-VALUES ('aliceangel@joeydrewstudios.com', 'IMALICEANGEL', 1, NULL, NULL),
-	   ('bendydemon@joeydrewstudios.com', 'creator=traitor', 2, NULL, NULL),
-	   ('caseyjones@roosevelt.ca', '#purpleDrag0nHater', 3, NULL, NULL),
-       ('willowpark@hexside.ca', 'emeraldEntrails', NULL, 1, NULL),
-       ('colereyes@sepulveda.ca', 'tennis4life', NULL, 2, NULL),
-	   ('sashawaybright@saint-james.ca', 'heartstomper<3', NULL, 3, NULL),
-	   ('carmensandiego@codered.com', 'whereintheworld', NULL, NULL, 1);
+INSERT INTO Authentication (username, password, personnel, member_ID, trainer_ID, admin_ID)
+VALUES ('aliceangel@joeydrewstudios.com', 'IMALICEANGEL', 'member', 1, NULL, NULL),
+	   ('bendydemon@joeydrewstudios.com', 'creator=traitor', 'member', 2, NULL, NULL),
+	   ('caseyjones@roosevelt.ca', '#purpleDrag0nHater', 'member', 3, NULL, NULL),
+       ('willowpark@hexside.ca', 'emeraldEntrails', 'trainer', NULL, 1, NULL),
+       ('colereyes@sepulveda.ca', 'tennis4life', 'trainer', NULL, 2, NULL),
+	   ('sashawaybright@saint-james.ca', 'heartstomper<3', 'trainer', NULL, 3, NULL),
+	   ('carmensandiego@codered.com', 'whereintheworld', 'admin', NULL, NULL, 1);
 
 INSERT INTO Emergency_Contacts (full_name, relationship, phone_number, member_ID, trainer_ID, admin_ID)
 VALUES ('Alison Angel', 'Sibling', '(613)-777-1626', 1, NULL, NULL),
@@ -84,6 +84,22 @@ VALUES (3, 160, '2024-04-01', '100 Push Ups Per Day', 'false'),
 	   (2, 100, '2024-04-02', '1K Run Each Morning', 'false'),
 	   (3, 120, '2024-04-29', '100 Sit Ups Per Day', 'false'),
 	   (1, 80, '2024-05-03', 'Lift Weights', 'false');
+
+INSERT INTO Workouts (member_ID, workout_name, completed)
+VALUES (1, '10 Reps On 10 LBS Weights', 'true'),
+       (1, 'Run On The Treadmill for 30 mins', 'false'),
+	   (1, '10 Pullups', 'false'),
+	   (2, '6 Laps Around The Football Field', 'true'),
+	   (2, '30 Pullups', 'false'),
+	   (3, '100 Laps Around The Skating Rink Under 10 mins', 'true'),
+	   (3, '100 Pullups', 'true'),
+	   (3, '100 Pushups', 'true'),
+	   (3, '100 Slapshots', 'true'),
+	   (3, '30 Bench Presses With 30 LBS Weights', 'false'),
+	   (3, '2 Expanding Suicides On The Ice', 'false'),
+	   (3, '100 Squats', 'false'),
+	   (3, 'Jump Rope for 10 mins', 'false'),
+	   (3, 'Wall Sits for 5 mins', 'false');
 
 INSERT INTO Weight (member_ID, trainer_ID, weight, date)
 VALUES (1, NULL, 180, '2024-02-27'),
